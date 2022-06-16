@@ -1,3 +1,8 @@
 .hide {
     display: none;
 }
+
+/* fix into neat rows for five day forecast */
+.rows {
+    align-items: center;
+}

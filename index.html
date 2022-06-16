@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./assets/css/style.css"
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
 
@@ -12,7 +12,7 @@
     <h1>Weather Dashboard</h1>
 
     <h2>Search for a City</h2>
-        <input>
+        <input id="search" >
             <button>Search</button>
         
         <!--make into columns-->
@@ -26,14 +26,40 @@
         <button id="denver">Denver</button>
         <button id="atlanta">Atlanta</button>
     <div>Display weather here</div>
+        <div class="hide rows" id="present">Present Day</div>
+            <div class="hide" id="temp0">Temp: </div>
+            <div class="hide" id="wind0">Wind: </div>
+            <div class="hide" id="humid0">Humidity: </div>
 
     <!--make this appear when button is selected-->
     <h3 class="hide">5-day Forecast</h3>
-        <div id="present">Present Day</div>
-        <div id="tomorrow">Tomorrow</div>
-        <div id="2DayOut">Day after Tomorrow</div>
-        <div id="3DayOut">3 days out</div>
-        <div id="4DayOut">4 days out</div>
+        <!--make into rows using -->
+
+
+        <div class="hide rows" id="tomorrow">Tomorrow</div>
+            <div class="hide" id="temp1">Temp: </div>
+            <div class="hide" id="wind1">Wind: </div>
+            <div class="hide" id="humid1">Humidity: </div>
+
+        <div class="hide rows" id="2DayOut">Day after Tomorrow</div>
+            <div class="hide" id="temp2">Temp: </div>
+            <div class="hide" id="wind2">Wind: </div>
+            <div class="hide" id="humid2">Humidity: </div>
+
+        <div class="hide rows" id="3DayOut">3 days out</div>
+            <div class="hide" id="temp3">Temp: </div>
+            <div class="hide" id="wind3">Wind: </div>
+            <div class="hide" id="humid3">Humidity: </div>
+
+        <div class="hide rows" id="4DayOut">4 days out</div>
+            <div class="hide" id="temp4">Temp: </div>
+            <div class="hide" id="wind4">Wind: </div>
+            <div class="hide" id="humid4" >Humidity: </div>
+
+        <div class="hide rows" id="5DayOut">5 days out</div>
+            <div class="hide" id="temp5">Temp: </div>
+            <div class="hide" id="wind5">Wind: </div>
+            <div class="hide" id="humid5" >Humidity: </div>
 
     <script src="./assets/js/script.js"></script>
 </body>
