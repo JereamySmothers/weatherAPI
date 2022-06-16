@@ -3,18 +3,24 @@
 
 // query selector variables
 var search = document.querySelector('#search');
+
+    // temperature variables
 var temp0 = document.querySelector('#temp0');
 var temp1 = document.querySelector('#temp1');
 var temp2 = document.querySelector('#temp2');
 var temp3 = document.querySelector('#temp3');
 var temp4 = document.querySelector('#temp4');
 var temp5 = document.querySelector('#temp5');
+
+    // wind variables
 var wind0 = document.querySelector('#wind0');
 var wind1 = document.querySelector('#wind1');
 var wind2 = document.querySelector('#wind2');
 var wind3 = document.querySelector('#wind3');
 var wind4 = document.querySelector('#wind4');
 var wind5 = document.querySelector('#wind5');
+
+    // humidity variables
 var humid0 = document.querySelector('#humid0');
 var humid1 = document.querySelector('#humid1');
 var humid2 = document.querySelector('#humid2');
@@ -24,10 +30,11 @@ var humid5 = document.querySelector('#humid5');
 
 // var functions
 var apiKey = function() {
-
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}');
+   
 };
 
-// temperature
+    // temperature
 var  temp0Input= function() {
 
 };
@@ -52,7 +59,7 @@ var temp5Input= function() {
 
 };
 
-// wind (mph)
+    // wind (mph)
 var wind0Input= function() {
 
 };
@@ -77,7 +84,7 @@ var wind5Input= function() {
 
 };
 
-// humidity (%)
+    // humidity (%)
 var humid0Input= function() {
 
 };
@@ -107,9 +114,9 @@ function search(event) {
 
 };
 
-function display(event) {
+function display() {
     // call temp, wind, and humidity data
-
+    
 };
 
 // eventlisteners
