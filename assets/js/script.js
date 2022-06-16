@@ -1,4 +1,5 @@
-// global variables and api
+// global variables
+// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API key} lat and long are required for key
 
 // query selector variables
 var search = document.querySelector('#search');
@@ -22,6 +23,10 @@ var humid4 = document.querySelector('#humid4');
 var humid5 = document.querySelector('#humid5');
 
 // var functions
+var apiKey = function() {
+
+};
+
 // temperature
 var  temp0Input= function() {
 
@@ -106,8 +111,5 @@ function display(event) {
     // call temp, wind, and humidity data
 
 };
-
-
-
 
 // eventlisteners
