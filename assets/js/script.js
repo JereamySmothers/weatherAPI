@@ -111,11 +111,12 @@ var humid5Input= function() {
 
 // functions
 function search(event) {
-
+    // use if statement to call display and apiKey function
+    // might throw temp, wind, and humidity inside
 };
 
 function display() {
-    // call temp, wind, and humidity data
+    // call temp, wind, and humidity data with if statement
     
 };
 
