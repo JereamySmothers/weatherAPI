@@ -5,136 +5,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
 
 <body>
-    <h1>Weather Dashboard</h1>
-    <div class="row">
-        <div class="col-sm-4">
-            <h2>Search for a City</h2>
-            <input id="search">
-            <button>Search</button>
-            <ul class="list-group">
-                <li class="list-group-item"><button class="w-100" id="austin">Austin</button></li>
-                <li class="list-group-item"><button class="w-100" id="chicago">Chicago</button></li>
-                <li class="list-group-item"><button class="w-100" id="ny">New York</button></li>
-                <li class="list-group-item"><button class="w-100" id="orlando">Orlando</button></li>
-                <li class="list-group-item"><button class="w-100" id="sf">San Francisco</button></li>
-                <li class="list-group-item"><button class="w-100" id="seattle">Seattle</button></li>
-                <li class="list-group-item"><button class="w-100" id="denver">Denver</button></li>
-                <li class="list-group-item"><button class="w-100" id="atlanta">Atlanta</button></li>
-              </ul>
-            <!--make into columns-->
-        
-        </div>
-        
-        <div class="col-sm-8">
-            <div class="p-5 mb-4 bg-light rounded-3">
-                <div class="container-fluid py-5">
-                    <div id="present">
-                        <div>Present Day</div>
-                        <div id="temp0">Temp: </div>
-                        <div id="wind0">Wind: </div>
-                        <div id="humid0">Humidity: </div>
-                    </div>
-                </div>
-              </div>
-            <!--make this appear when button is selected-->
-            <h3>5-day Forecast</h3>
-            <div class="row g-4">
-                <div class="col-sm-2">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div id="tomorrow">
-                            <div>Tomorrow</div>
-                            <div id="temp1">Temp: </div>
-                            <div id="wind1">Wind: </div>
-                            <div id="humid1">Humidity: </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div id="2DayOut">
-                            <div>Day after Tomorrow</div>
-                            <div id="temp2">Temp: </div>
-                            <div id="wind2">Wind: </div>
-                            <div id="humid2">Humidity: </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div id="3DayOut">
-                            <div>3 days out</div>
-                            <div id="temp3">Temp: </div>
-                            <div id="wind3">Wind: </div>
-                            <div id="humid3">Humidity: </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div id="4DayOut">
-                            <div>4 days out</div>
-                            <div id="temp4">Temp: </div>
-                            <div id="wind4">Wind: </div>
-                            <div id="humid4">Humidity: </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="card">
-                      <img src="..." class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <div id="5DayOut">
-                            <div>5 days out</div>
-                            <div id="temp5">Temp: </div>
-                            <div id="wind5">Wind: </div>
-                            <div id="humid5">Humidity: </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-              </div>
-            <!--make into rows -->
-            <div class="row">
 
+    <header class="header">
 
+        <h1>Weather Dashboard</h1>
+    </header>
 
+    <main class="page">
 
+        <div class="nav">
 
+            <form class="form" id="citySearchForm">
 
+                <label for="city">Search a City for the Weather</label></br>
 
+                <input type="text" placeholder="Enter a City" name="city" id="city-search-city" class="form-input">
 
+                <button type="submit" id="citySearch">Search</button>
+            </form>
+
+            <div class="historical">
+
+                <h3>Search History</h3>
+
+                <ul id="searchHistory"></ul>
 
             </div>
-
-
         </div>
-    </div>
 
+        <div class="content"></div>
+    </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
 
+        integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
 
+        crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js"
+
+        integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w=="
+
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/timezone.min.js"
+
+        integrity="sha512-pslqxxHAYPCxaSeFSmXXxDkLejD5dbFVC66aiVq0z4v7VTJBU+wqcG1OpNh4p3MjS2D6NCwz/H2QmSc7dXxryg=="
+
+        crossorigin="anonymous"></script>
 
     <script src="./assets/js/script.js"></script>
 </body>
