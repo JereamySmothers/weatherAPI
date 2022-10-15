@@ -45,7 +45,7 @@ function displayWeather(city, weather, timezone) {
     let temp = weather.temp;
     let wind = weather.wind_speed;
     let humidity = weather.humidity;
-    let uvIndex = weather.uvi;
+    // let uvIndex = weather.uvi;
     
     // element creation
     let cityName = document.createElement('h1');
@@ -57,7 +57,7 @@ function displayWeather(city, weather, timezone) {
 
     card.setAttribute('class', 'currentWeather');
 
-    cityNameEl.textContent = `${city}`;
+    cityName.textContent = `${city}`;
     card.append(cityName);
     weatherIcon.setAttribute('src', icon);
     weatherIcon.setAttribute('alt', iconAlt);
@@ -66,8 +66,8 @@ function displayWeather(city, weather, timezone) {
     dateEl.textContent = `Date: ${date}`;
     tempEl.textContent = `Temp: ${temp}°F`;
     windEl.textContent = `Wind Speed: ${wind} MPH`;
-    humidEl.textContent = `Humidity: ${humidity} %`;
-    uviEl.textContent = `UVI Index: ${uvi}`;
+    humidityEl.textContent = `Humidity: ${humidity} %`;
+    uvIndexEl.textContent = `UVI Index: ${uvi}`;
 
     card.append(dateEl);
     card.append(tempEl);
@@ -97,7 +97,7 @@ function displayForecast(data, timezone) {
 
     for(let i = 0; i < data.length; i++) {
 
-        if(data[i].dt ?= start && data[i].dt < end) {
+        if(data[i].dt >= start && data[i].dt < end) {
 
             let iconUrl = `http://openweathermap.org/img/wn/${data[i].weather[0].icon}.png`;
             let iconDescription = data[i].weather[0].description;
@@ -136,24 +136,60 @@ function displayAllWeather(city, data) {
 
 // related history functions
 function initializeSearchHistory() {
+    let storedHistory = localStorage.getItem('search-history');
 
+    if(storedHistory) {
+        searchHistory = JSON.parse(storedHistory);
+    }
+
+    displaySearchHistory();
 }
 
-function citySearchHandler(e) {
+function citySearch(e) {
+    e.preventDefault();
 
+    let city = document.querySelector('#city-search').ariaValueMax.trim();
+    let state = document.querySelector('#city-search-state').ariaValueMax;
+
+    if(!city) {
+        return;
+    }
+
+    cityLocation(city, state);
+    citySearch.reset();
 }
 
 function appendSearchHistory(citySearch) {
+    if(searchHistory.indexOf(citySeach) !== -1) {
+        return;
+    }
+    searchHistory.push(citySearrch);
 
+    localStorage.setItem('search-history', JSON.stringify(searchHistory));
+    displaySearchHistory();
 }
 
 function displaySearchHistory() {
+    searchHistory.Ul.innerHTML = '';
 
+    for(let i = searchHistory.length - 1; i>= 0; i--) {
+        let searchLi = document.createElement('li');
+        searchLi.textContent = searchHistory[i];
+        searchLi.setAttribute('class', 'search-item');
+        searchHistoryUl.append(searchLi);
+    }
 }
 
 // handler for localStorage of past searches
 function historyListener(event) {
+ if(!event.target.matches('.search-item')){
+    return;
+ }
 
+ let search = event.target.textContent;
+ const searchArr = search.split(', ');
+
+ getCityLocation(searchArr[0], searchArr[1]);
 }
 
 // load localstorage
@@ -162,5 +198,3 @@ initializeSearchHistory();
 // event listeners
 searchHistoryUl.addEventListener('click',);
 citySearch.addEventListener('submit',);
-
-git commit -m "added in display related functions"
