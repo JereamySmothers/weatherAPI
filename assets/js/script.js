@@ -1,16 +1,17 @@
 // global variables
 let searchHistory = [];
-const citySearch = document.querySelector('#city-search-form');
+const citySearchEl = document.querySelector('#citySearchForm');
 const mainContent = document.querySelector('.content');
-const searchHistoryUl = document.querySelector('#search-history');
+const searchHistoryEl = document.querySelector('#searchHistory');
 
 // day.js plug-ins
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
 // api call handlers
-function cityLocation(city, state) {
-    const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},usa&limit=1&appid=${config.myKey}`;
+function cityLocation(city) {
+    const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},usa&limit=1&appid=43307f36c133c1b4d80feb3644b2ab3e
+    `;
 
     fetch(apiUrl)
         .then((res) => res.json())
@@ -18,29 +19,32 @@ function cityLocation(city, state) {
             if (!data[0]) {
                 alert('Location unknown')
             } else {
-                appendSearchHistory(`${city}, ${state}`);
+                appendSearchHistory(`${city}`);
                 Weather(data[0]);
             }
         })
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
 }
 
-function Weather(location) {
-    const apiUrl = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${config.myKey}`;
+function Weather(location) {    
     const { lat, lon } = location;
+    const apiUrl = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=43307f36c133c1b4d80feb3644b2ab3e
+    `;
     const cityState = `${location.name}, ${location.state}`;
 
     fetch(apiUrl)
         .then((res) => res.json())
         .then((data) => displayAllWeather(cityState, data))
-        .catch((err) => console.log(err));
+        // .catch((err) => console.log(err));
 }
 
 // display functions using call handlers
 function displayWeather(city, weather, timezone) {
-    let icon = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
-    let altIcon = weather.weather[0].description;
-
+    console.log(weather);
+    let icon = `http://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`;
+    // let altIcon = weather.weather[0].description;
+    let weatherIcon = document.createElement('img');
+    let card = document.createElement('div');
     let date = dayjs().tz(timezone).format('M/D/YYYY');
     let temp = weather.temp;
     let wind = weather.wind_speed;
@@ -60,19 +64,19 @@ function displayWeather(city, weather, timezone) {
     cityName.textContent = `${city}`;
     card.append(cityName);
     weatherIcon.setAttribute('src', icon);
-    weatherIcon.setAttribute('alt', iconAlt);
+    // weatherIcon.setAttribute('alt', iconAlt);
     card.append(weatherIcon);
 
-    dateEl.textContent = `Date: ${date}`;
-    tempEl.textContent = `Temp: ${temp}°F`;
-    windEl.textContent = `Wind Speed: ${wind} MPH`;
-    humidityEl.textContent = `Humidity: ${humidity} %`;
-    uvIndexEl.textContent = `UVI Index: ${uvi}`;
+    dateEl.textContent = `Date: ${weather.current.date}`;
+    tempEl.textContent = `Temp: ${weather.current.temp}°F`;
+    windEl.textContent = `Wind Speed: ${weather.current.wind_speed} MPH`;
+    humidityEl.textContent = `Humidity: ${weather.current.humidity} %`;
+    uvIndexEl.textContent = `UVI Index: ${weather.current.uvi}`;
 
     card.append(dateEl);
     card.append(tempEl);
     card.append(windEl);
-    card.append(humidEl);
+    card.append(humidityEl);
     card.append(uvIndexEl);
 
     mainContent.innerHTML = '';
@@ -114,7 +118,7 @@ function displayForecast(data, timezone) {
             let humidityEl = document.createElement('h4');
 
             cardEl.setAttribute('class', 'card');
-            dateEl.textContent = dayjs.time(time).tz(timezone).format('M/D/YYYY');
+            dateEl.textContent = moment(time).format('M/D/YYYY');
             iconEl.setAttribute('src', iconUrl);
             iconEl.setAttribute('alt', iconDescription);
             tempEl.textContent = `Temp: ${temp}°F`;
@@ -122,7 +126,7 @@ function displayForecast(data, timezone) {
             humidityEl.textContent = `Humidity: ${humidity} %`;
 
             cardEl.append(dateEl, iconEl, tempEl, windEl, humidityEl);
-            cardcontainerRow.append(cardEl);
+            cardContainerRow.append(cardEl);
         }
     }
     cardContainerEl.append(cardContainerRow);
@@ -148,35 +152,33 @@ function initializeSearchHistory() {
 function citySearch(e) {
     e.preventDefault();
 
-    let city = document.querySelector('#city-search').ariaValueMax.trim();
-    let state = document.querySelector('#city-search-state').ariaValueMax;
+    let city = document.querySelector('#city-search-city').value.trim();
 
     if(!city) {
         return;
     }
 
-    cityLocation(city, state);
-    citySearch.reset();
+    cityLocation(city);
 }
 
 function appendSearchHistory(citySearch) {
-    if(searchHistory.indexOf(citySeach) !== -1) {
+    if(searchHistory.indexOf(citySearch) !== -1) {
         return;
     }
-    searchHistory.push(citySearrch);
+    searchHistory.push(citySearch);
 
     localStorage.setItem('search-history', JSON.stringify(searchHistory));
     displaySearchHistory();
 }
 
 function displaySearchHistory() {
-    searchHistory.Ul.innerHTML = '';
+    searchHistoryEl.innerHTML = '';
 
     for(let i = searchHistory.length - 1; i>= 0; i--) {
         let searchLi = document.createElement('li');
         searchLi.textContent = searchHistory[i];
         searchLi.setAttribute('class', 'search-item');
-        searchHistoryUl.append(searchLi);
+        searchHistoryEl.append(searchLi);
     }
 }
 
@@ -196,5 +198,5 @@ function historyListener(event) {
 initializeSearchHistory();
 
 // event listeners
-searchHistoryUl.addEventListener('click',);
-citySearch.addEventListener('submit',);
+searchHistoryEl.addEventListener('click',historyListener);
+citySearchEl.addEventListener('submit', citySearch);
